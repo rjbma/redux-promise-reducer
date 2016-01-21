@@ -31,7 +31,10 @@ export const createPromiseAction = ({parameter, actionName = `RESOLVE_${paramete
 };
 
 /**
- * Default reducer for handling actions created with `createPromiseAction`.
+ * Function that creates a reducer for handling actions created with `createPromiseAction`.
+ * Optionally, this function may take 3 reducers for handling the 3 states of a promise: pending, fulfilled and rejected.
+ * Otherwise, the default reducers will be used instead.
+ *
  * If the action specified a `meta.property`, an object with the following structure:
  * ```
  *      meta.property
@@ -41,43 +44,68 @@ export const createPromiseAction = ({parameter, actionName = `RESOLVE_${paramete
  *          data: value with which the promise was resolved
  * ```
  */
-export const promiseReducer = (state = {}, action) => {
-    var actionProps = decodeAction(action);
-    if (actionProps) {
-        // fetch the property where the response will be stored
-        // if no property was specified, then store nothing
-        const propertyName = action.meta && action.meta.property;
-        if (propertyName) {
-            if (actionProps.type === PENDING) {
-                return Object.assign({}, state, {
-                    [propertyName]: {
-                        pending: true,
-                        error: false,
-                        ready: false
+export const promiseReducer =
+    ({pendingReducer = handlePendingReducer, fulfilledReducer = handleFulfilledReducer, rejectedReducer = handleRejectedReducer} = {}) =>
+        (state = {}, action) => {
+            var actionProps = decodeAction(action);
+            if (actionProps) {
+                // fetch the property where the response will be stored
+                // if no property was specified, then store nothing
+                const propertyName = action.meta && action.meta.property;
+                if (propertyName) {
+                    if (actionProps.type === PENDING) {
+                        return pendingReducer(state, action);
+                    } else if (actionProps.type === FULFILLED) {
+                        return fulfilledReducer(state, action);
+                        ;
+                    } else if (actionProps.type === REJECTED) {
+                        return rejectedReducer(state, action);
+                        ;
                     }
-                });
-            } else if (actionProps.type === FULFILLED) {
-                return Object.assign({}, state, {
-                    [propertyName]: {
-                        pending: false,
-                        error: false,
-                        ready: true,
-                        data: action.payload
-                    }
-                });
-            } else if (actionProps.type === REJECTED) {
-                return Object.assign({}, state, {
-                    [propertyName]: {
-                        pending: false,
-                        ready: false,
-                        error: true
-                    }
-                });
+                }
             }
+            return state;
+        };
+
+/**
+ * Default reducer for handling PENDING actions
+ */
+function handlePendingReducer(state, action) {
+    return Object.assign({}, state, {
+        [action.meta.property]: {
+            pending: true,
+            error: false,
+            ready: false
         }
-    }
-    return state;
-};
+    });
+}
+
+/**
+ * Default reducer for handling FULFILLED actions
+ */
+function handleFulfilledReducer(state, action) {
+    return Object.assign({}, state, {
+        [action.meta.property]: {
+            pending: false,
+            error: false,
+            ready: true,
+            data: action.payload
+        }
+    });
+}
+
+/**
+ * Default reducer for handling PENDING actions
+ */
+function handleRejectedReducer(state, action) {
+    return Object.assign({}, state, {
+        [action.meta.property]: {
+            pending: false,
+            ready: false,
+            error: true
+        }
+    });
+}
 
 /**
  * Parse the action and decompose into its relevant parts
