@@ -1,0 +1,43 @@
+{
+  "name": "redux-promise-reducer",
+  "version": "1.0.0",
+  "description": "Simple reducer for `redux-promise-middleware`",
+  "main": "dist/index.js",
+  "scripts": {
+    "test": "mocha --compilers js:babel-core/register --recursive",
+    "prepublish": "npm test && make js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rjbma/redux-promise-reducer.git"
+  },
+  "keywords": [
+    "redux",
+    "middleware",
+    "reducer",
+    "promise",
+    "promises"
+  ],
+  "author": "rjbma",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/rjbma/redux-promise-reducer/issues"
+  },
+  "homepage": "https://github.com/rjbma/redux-promise-reducer",
+  "devDependencies": {
+    "babel": "^5.6.18",
+    "babel-core": "^5.6.18",
+    "babel-loader": "^5.1.4",
+    "babel-eslint": "^3.1.23",
+    "babel-plugin-react-transform": "^1.1.0",
+    "chai": "^3.4.1",
+    "eslint": "^0.24.1",
+    "eslint-config-airbnb": "0.0.6",
+    "eslint-plugin-react": "^2.7.0",
+    "mocha": "^2.3.4"
+  },
+  "peerDependencies": {
+    "redux": "^2.0.0 || ^3.0.0"
+  },
+  "dependencies": {}
+}

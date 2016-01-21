@@ -1,0 +1,8 @@
+src/
+test/
+example/
+.eslintrc
+.babelrc
+.travis.yml
+CONTRIBUTING.md
+Makefile
