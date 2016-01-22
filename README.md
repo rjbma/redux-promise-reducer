@@ -12,7 +12,7 @@ Setup your store with the middleware to make sure it handles the actions you'll 
 
 #### 2. Create the reducer that will handle all the actions created by the middleware. 
 
-You can either use the default reducing functions for the PENDING, FULFILLED and REJECTED actions (see below for detail):
+You can either use the default reducing functions for the `PENDING`, `FULFILLED` and `REJECTED` actions (see below for details):
 ```
 import { promiseReducer } from 'redux-promise-reducer';
 ...
@@ -26,7 +26,7 @@ const myreducer = promiseReducer({
     rejectedReducer: () => 'awww man!'
 });
 ```
-#### 3. Make sure your store use your new reducer
+#### 3. Make sure your store uses your new reducer
 
 Here we use `redux.combineReducers` to make sure all your promises reside under a specific property (`data` in this case) in your state:
 ```
@@ -39,9 +39,9 @@ const rootReducer = combineReducers({
 ```
 #### 4. Dispatch actions using the supplied action creator
 
-The action creator `createPromiseAction` creates actions that will be handled by `redux-promise-middleware`. The middleware will immediately invoke a PENDING action; it will also make sure that the promise embedded in the action is either FULFILLED or REJECTED, and will invoke new actions when that happens. These new actions will then be reduced by the reducer we created earlier. 
+The action creator `createPromiseAction` creates actions that will be handled by `redux-promise-middleware`. The middleware will immediately invoke a `PENDING` action; it will also make sure that the promise embedded in the action is either `FULFILLED` or `REJECTED`, and will invoke new actions when that happens. These new actions will then be reduced by the reducer we created earlier. 
 
-Every action created by this creator get prefixed with `RPR`. Also, the reducer only handles actions that have this prefix (along with some other requirements, like finishing with either `PENDING`|`FULFILLED`|`REJECTED`). This currently hard-coded.
+Every action created by this creator get prefixed with `RPR`. Also, the reducer only handles actions that have this prefix (along with some other requirements, like terminating with either `PENDING`|`FULFILLED`|`REJECTED`). This currently hard-coded.
 
 Some examples:
 
