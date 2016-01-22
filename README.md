@@ -1,5 +1,5 @@
 # redux-promise-reducer
-Provides an action creator and reducer that easily integrate with [redux-promise-middleware](https://github.com/pburtchaell/redux-promise-middleware).
+Provides an action creator and reducer that easily integrates with [redux-promise-middleware](https://github.com/pburtchaell/redux-promise-middleware).
 
 # Installation
 
