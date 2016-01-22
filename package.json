@@ -1,6 +1,6 @@
 {
   "name": "redux-promise-reducer",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Simple reducer for `redux-promise-middleware`",
   "main": "dist/index.js",
   "scripts": {
