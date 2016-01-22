@@ -1,5 +1,9 @@
 # redux-promise-reducer
-Provides an action creator and reducer that easily integrates with [redux-promise-middleware](https://github.com/pburtchaell/redux-promise-middleware).
+Easily integrate with [redux-promise-middleware](https://github.com/pburtchaell/redux-promise-middleware).
+
+1. Create actions with `createPromiseAction`, passing it a property name and a promise.
+2. Those actions are then handled by the middleware, which resolves the promise and dispatches new actions when the status of the promise changes.
+3. Those actions are then handled by the reducer, which automatically updates the property specified previously in the state. For each promise, the state now holds information about its status (wether it's resolved, pending or rejected), besides its result when it is resolved, of course.
 
 # Installation
 
